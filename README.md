@@ -3,7 +3,7 @@ This is a camera stream recorder that can be used through the command line.
 
 ## Usage:
 
-Command Template: ``<program> <RTSP_URL> <Minutes_Per_Chunk> <Base_Output_Directory>``
+Command Template: ``<Executable> <RTSP_URL> <Minutes_Per_Chunk> <Base_Output_Directory>``
 
 Command Example: ``rtsp-recorder.exe rtsp://username:password@ipadress:port 60 ./``
 
