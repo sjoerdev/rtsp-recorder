@@ -5,29 +5,37 @@ using System.Threading;
 
 class Program
 {
-    static float minutesPerChunk = 0.1f;
-    static int secondsPerChunk = (int)(minutesPerChunk * 60);
-    static string rtsp = "rtsp://admin:DoomSlayer04@192.168.2.21:554";
-
     static void Main(string[] args)
     {
-        // get base directory (where the .exe is located)
-        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        // validate argumenta
+        if (args.Length < 3)
+        {
+            Console.WriteLine("Usage: <program> <RTSP_URL> <Minutes_Per_Chunk> <Base_Output_Directory>");
+            return;
+        }
+
+        // gather arguments
+        string rtsp = args[0];
+        float minutesPerChunk = float.Parse(args[1]);
+        string baseOutputDirectory = args[2];
+
+        // convert minutes to seconds
+        int secondsPerChunk = (int)(minutesPerChunk * 60);
 
         // create timestamped output directory
         string folderName = DateTime.Now.ToString("dd_MM_yyyy-HH_mm_ss");
-        string outputDir = Path.Combine(baseDir, folderName);
+        string outputDir = Path.Combine(baseOutputDirectory, folderName);
         Directory.CreateDirectory(outputDir);
 
         // give feedback in the terminal
-        Console.WriteLine($"Recording to {outputDir}");
-        Console.WriteLine($"Each chunk length: {minutesPerChunk} minute(s) ({secondsPerChunk} seconds)");
-        Console.WriteLine("Press Ctrl+C to stop.");
+        //Console.WriteLine($"Recording to {outputDir}");
+        //Console.WriteLine($"Each chunk length: {minutesPerChunk} minute(s) ({secondsPerChunk} seconds)");
+        //Console.WriteLine("Press Ctrl+C to stop.");
 
         // create label for filename
         string label = minutesPerChunk % 1 == 0 ? $"{(int)minutesPerChunk}min" : $"{secondsPerChunk}sec";
         string filenamePattern = $"chunk_%03d_{label}.mp4";
-        
+
         // determine ffmpeg arguments
         var ffmpeg_args = $"-hide_banner -loglevel quiet -rtsp_transport tcp -i \"{rtsp}\" -c copy -f segment -segment_time {secondsPerChunk} -reset_timestamps 1 \"{Path.Combine(outputDir, filenamePattern)}\"";
 
@@ -43,7 +51,7 @@ class Program
         // gracefully end recording when ctrl+c is pressed
         Console.CancelKeyPress += (sender, args) =>
         {
-            Console.WriteLine("\nStopping recording...");
+            //Console.WriteLine("Stopping recording...");
             ffmpeg_process.StandardInput.WriteLine("q");
             args.Cancel = true;
         };
@@ -64,8 +72,8 @@ class Program
                 percent = 0;
             }
 
-            Console.Write("\rRecording chunk " + currentChunk.ToString() + " - " + percent.ToString("0.00") + "%");
-            Thread.Sleep(100);
+            Console.WriteLine("Recording chunk " + currentChunk.ToString() + " - " + percent.ToString("0.00") + "%");
+            Thread.Sleep(1000);
         }
 
         Console.WriteLine("Recording stopped.");
