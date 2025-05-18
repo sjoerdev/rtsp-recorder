@@ -10,7 +10,7 @@ class Program
         // validate argumenta
         if (args.Length < 3)
         {
-            Console.WriteLine("Usage: <program> <RTSP_URL> <Minutes_Per_Chunk> <Base_Output_Directory>");
+            Console.WriteLine("Usage: <Executable> <RTSP_URL> <Minutes_Per_Chunk> <Base_Output_Directory>");
             return;
         }
 
