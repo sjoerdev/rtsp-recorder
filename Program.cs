@@ -28,9 +28,7 @@ class Program
         Directory.CreateDirectory(outputDir);
 
         // give feedback in the terminal
-        //Console.WriteLine($"Recording to {outputDir}");
-        //Console.WriteLine($"Each chunk length: {minutesPerChunk} minute(s) ({secondsPerChunk} seconds)");
-        //Console.WriteLine("Press Ctrl+C to stop.");
+        Console.WriteLine("Recording started. (Press Ctrl+C to stop)");
 
         // create label for filename
         string label = minutesPerChunk % 1 == 0 ? $"{(int)minutesPerChunk}min" : $"{secondsPerChunk}sec";
@@ -75,12 +73,21 @@ class Program
                 percent = 0;
             }
 
-            string message = "Recording chunk " + currentChunk.ToString() + " - " + percent.ToString("0.00") + "%";
-            Console.Write(message.PadRight(Console.WindowWidth - 1) + "\r");
+            OverWriteLineAndReturn("Recording chunk " + currentChunk.ToString() + " - " + percent.ToString("0.00") + "%");
             Thread.Sleep(100);
         }
 
-        Console.WriteLine("\nRecording stopped.");
+        OverWriteLine("Recording saved to: " + outputDir);
         Console.CursorVisible = true;
+    }
+
+    static void OverWriteLine(string message)
+    {
+        Console.Write("\r" + message.PadRight(Console.WindowWidth - 1));
+    }
+    
+    static void OverWriteLineAndReturn(string message)
+    {
+        Console.Write("\r" + message.PadRight(Console.WindowWidth - 1) + "\r");
     }
 }
