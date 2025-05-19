@@ -59,7 +59,10 @@ class Program
         var startTime = DateTime.Now;
         int currentChunk = 0;
 
-        // while ffmpeg is still recording
+        // take away the console cursor
+        Console.CursorVisible = false;
+
+        // while ffmpeg is recording
         while (!ffmpeg_process.HasExited)
         {
             var elapsed = (DateTime.Now - startTime).TotalSeconds;
@@ -72,10 +75,12 @@ class Program
                 percent = 0;
             }
 
-            Console.WriteLine("Recording chunk " + currentChunk.ToString() + " - " + percent.ToString("0.00") + "%");
-            Thread.Sleep(1000);
+            string message = "Recording chunk " + currentChunk.ToString() + " - " + percent.ToString("0.00") + "%";
+            Console.Write(message.PadRight(Console.WindowWidth - 1) + "\r");
+            Thread.Sleep(100);
         }
 
-        Console.WriteLine("Recording stopped.");
+        Console.WriteLine("\nRecording stopped.");
+        Console.CursorVisible = true;
     }
 }
