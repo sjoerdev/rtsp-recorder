@@ -1,6 +1,14 @@
 # RTSP Recorder
 This is a camera stream recorder that can be used through the command line.
 
+## Requirements:
+
+install ffmpeg:
+
+windows: ``winget install ffmpeg``
+
+linux: ``sudo apt install ffmpeg``
+
 ## Usage:
 
 Command Template: ``<Executable> <RTSP_URL> <Minutes_Per_Chunk> <Base_Output_Directory>``
