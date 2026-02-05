@@ -43,6 +43,31 @@ This is a camera stream recorder that can be used through the command line.
 2. scan for rtsp devices using nmap by running ``nmap -p 554 --open 192.168.1.0/24``
 3. your camera ip adress should now be shown and should work like normal
 
+**How do i connect my rtsp ip camera directly to my computer?:**
+
+> [!tip]
+> We can connect the camera directly to our computer without a router in between.
+>
+> We can do this by making our computer work like a tiny router.
+
+1. Connect camera to your computer via ethernet
+2. Manually set a static ip on your PC
+
+> Example:
+> 
+> Computer IP: ``192.168.1.10``
+> 
+> Subnet: ``255.255.255.0``
+> 
+> Gateway: (leave empty)
+
+3. Set camera static ip in the same subnet
+> Example:
+> 
+> Camera IP: ``192.168.1.20``
+> 
+> Subnet: ``255.255.255.0``
+
 ## Building:
 
 Download .NET 9: https://dotnet.microsoft.com/en-us/download
