@@ -39,7 +39,7 @@ This is a camera stream recorder that can be used through the command line.
 
 **How do i find the ip adress of my ip camera if its connected to my computer?:**
 
-1. make sure you have ``nmap`` install by running ``winget install nmap``
+1. make sure you have ``nmap`` installed by running ``winget install nmap``
 2. scan for rtsp devices using nmap by running ``nmap -p 554 --open 192.168.1.0/24``
 3. your camera ip adress should now be shown and should work like normal
 
