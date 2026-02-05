@@ -28,7 +28,7 @@ This is a camera stream recorder that can be used through the command line.
 - with username but no password: ``rtsp://username@ipadress:port``
 - with no usernamne and no password: ``rtsp://ipadress:port``
 
-**How do i find the ip adress of my ip camera?:**
+**How do i find the ip adress of my ip camera if its connected to my router?:**
 
 1. run the ``ipconfig`` command and look for the "Default Gateway" adress
 2. fill in this adress in your browser like its a normal link to go to the router dashboard
@@ -36,6 +36,12 @@ This is a camera stream recorder that can be used through the command line.
 4. look at the network topology or map and find your ip camera
 5. select the ip camera and see what ip adress the router has given it
 6. (optional) assign a static ip adress to the ip camera so the ip wont change randomly
+
+**How do i find the ip adress of my ip camera if its connected to my computer?:**
+
+1. make sure you have ``nmap`` install by running ``winget install nmap``
+2. scan for rtsp devices using nmap by running ``nmap -p 554 --open 192.168.1.0/24``
+3. your camera ip adress should now be shown and should work like normal
 
 ## Building:
 
